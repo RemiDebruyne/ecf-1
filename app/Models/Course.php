@@ -12,7 +12,6 @@ class Course extends Model
     use HasFactory;
     protected $fillable = [
         'activity',
-        'duration'
     ];
 
     public function reservation(): HasMany {

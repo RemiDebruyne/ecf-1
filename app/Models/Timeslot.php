@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\BelongsToManyRelationship;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Timeslot extends Model
 {
@@ -11,10 +13,10 @@ class Timeslot extends Model
     protected $fillable = [
         'start_time',
         'end_time',
-        'course_date',
     ];
 
-    public function course(){
-        return $this->belongsToMany(Course::class, foreignPivotKey:'course_timeSlot_id');
+
+    public function reservation(): BelongsToMany {
+        return $this->belongsToMany(Reservation::class);
     }
 }
