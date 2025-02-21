@@ -1,0 +1,64 @@
+Sub Create_Tables()
+
+DoCmd.RunSQL "CREATE TABLE Time_slots(" & _
+   "Id_Time_slot COUNTER," & _
+   "time_slot DATETIME," & _
+   "PRIMARY KEY(Id_Time_slot)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Users(" & _
+   "Id_User COUNTER," & _
+   "first_name VARCHAR(50)," & _
+   "last_name VARCHAR(50)," & _
+   "email VARCHAR(50)," & _
+   "PRIMARY KEY(Id_User)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Admins(" & _
+   "Id_User INT," & _
+   "is_admin LOGICAL NOT NULL," & _
+   "PRIMARY KEY(Id_User)," & _
+   "FOREIGN KEY(Id_User) REFERENCES Users(Id_User)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Rooms(" & _
+   "Id_Room COUNTER," & _
+   "name VARCHAR(50)," & _
+   "PRIMARY KEY(Id_Room)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Clients(" & _
+   "Id_User INT," & _
+   "birth_year DATE," & _
+   "PRIMARY KEY(Id_User)," & _
+   "FOREIGN KEY(Id_User) REFERENCES Users(Id_User)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Classes(" & _
+   "Id_Class COUNTER," & _
+   "activity VARCHAR(50)," & _
+   "duration TIME," & _
+   "Id_Room INT NOT NULL," & _
+   "PRIMARY KEY(Id_Class)," & _
+   "FOREIGN KEY(Id_Room) REFERENCES Rooms(Id_Room)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Clients_to_classes(" & _
+   "Id_Class INT," & _
+   "Id_User INT," & _
+   "Id_Register_To COUNTER," & _
+   "PRIMARY KEY(Id_Class, Id_User, Id_Register_To)," & _
+   "FOREIGN KEY(Id_Class) REFERENCES Classes(Id_Class)," & _
+   "FOREIGN KEY(Id_User) REFERENCES Clients(Id_User)" & _
+");"   
+
+DoCmd.RunSQL "CREATE TABLE Classes_to_time_slots(" & _
+   "Id_Time_slot INT," & _
+   "Id_Class INT," & _
+   "Id_classes_to_time_slots COUNTER," & _
+   "PRIMARY KEY(Id_Time_slot, Id_Class, Id_classes_to_time_slots)," & _
+   "FOREIGN KEY(Id_Time_slot) REFERENCES Time_slots(Id_Time_slot)," & _
+   "FOREIGN KEY(Id_Class) REFERENCES Classes(Id_Class)" & _
+");"   
+
+End Sub
