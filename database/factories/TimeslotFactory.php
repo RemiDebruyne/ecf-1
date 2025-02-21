@@ -17,9 +17,8 @@ class TimeslotFactory extends Factory
     public function definition(): array
     {
         return [
-            'start_time' => fake()->time('H'),
-            'end_time' => fake()->time('H'),
-            'course_date' => fake()->date('d-m-y')
+            'start_time' => fake()->time('H:i'),
+            'end_time' => fake()->time('H:i'),
         ];
     }
 }
